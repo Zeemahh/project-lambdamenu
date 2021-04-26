@@ -2122,7 +2122,11 @@ void update_features()
 
 		if (playersNamesVehicles)
 		{
+#if !defined(ZLM_CONF_NO_OVERHEAD_NAMES)
 			if (featurePlayerVehHeadDisplay)
+#else
+			if (0)
+#endif
 			{
 				featurePlayerVehHeadDisplay = false;
 			}
@@ -3732,7 +3736,7 @@ bool onconfirm_hudcolor_menu(MenuItem<int> choice)
 	switch (activeLineIndexHudColors)
 	{
 	case 0:
-#ifdef DEVELOPMENT
+#if defined(DEVELOPMENT)
 		change_color_of_all_hud_ids(117, 27, 241, 150);
 #else
 		set_status_text("~r~Error! Not in developer mode!");
@@ -3838,7 +3842,11 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 		}
 		break;
 	case 3:
+#if !defined(ZLM_CONF_NO_OVERHEAD_NAMES)
 		if (featurePlayerHeadDisplay)
+#else
+		if (0)
+#endif
 		{
 			for (int i = 0; i < MAX_PLAYERS; i++)
 				if (playerdb[i].name != "" && UI::_0x4E929E7A5796FD26(playerdb[i].head))
@@ -3967,7 +3975,7 @@ void process_misc_menu()
 	draw_menu_from_struct_def(lines, lineCount, &activeLineIndexMisc, caption, onconfirm_misc_menu);
 }
 
-#ifdef DEVELOPMENT
+#if defined(DEVELOPMENT)
 //==================
 // DEVELOPMENT TOOLS
 //==================
@@ -4072,7 +4080,7 @@ bool onconfirm_main_menu(MenuItem<int> choice)
 	case 6:
 		process_misc_menu();
 		break;
-#ifdef DEVELOPMENT
+#if defined(DEVELOPMENT)
 	case 7:
 		process_dev_menu();
 		break;
@@ -4099,7 +4107,7 @@ void process_main_menu()
 		"Vehicles",
 		"World",
 		"Settings",
-#ifdef DEVELOPMENT
+#if defined(DEVELOPMENT)
 		"Development Tools",
 #endif
 		"Leave Session"
@@ -4112,7 +4120,7 @@ void process_main_menu()
 		item.caption = TOP_OPTIONS[i];
 		item.value = i;
 		item.isLeaf = i == 7;
-#ifdef DEVELOPMENT
+#if defined(DEVELOPMENT)
 		item.isLeaf = i == 8;
 #endif
 		item.currentMenuIndex = i;
@@ -4122,7 +4130,7 @@ void process_main_menu()
 	draw_generic_menu<int>(menuItems, &activeLineIndexMain, caption, onconfirm_main_menu, NULL, NULL);
 }
 
-#ifdef DEVELOPMENT
+#if defined(DEVELOPMENT)
 void change_color_of_all_hud_ids(int r, int g, int b, int a)
 {
 	for (int i = 2; i < 216; i++)
@@ -4335,7 +4343,7 @@ int filterException(int code, PEXCEPTION_POINTERS ex)
 
 void ScriptMain()
 {
-#ifdef _DEBUG
+#if defined(_DEBUG)
 	__try
 	{
 #endif
@@ -4368,7 +4376,7 @@ void ScriptMain()
 		
 		write_text_to_log_file("ScriptMain ended");
 
-#ifdef _DEBUG
+#if defined(_DEBUG)
 	}
 	__except (filterException(GetExceptionCode(), GetExceptionInformation()))
 	{

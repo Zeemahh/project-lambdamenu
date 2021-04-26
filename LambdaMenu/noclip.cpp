@@ -27,6 +27,8 @@ char* noclip_ANIM_B = "base";
 
 int travelSpeed = 2;
 
+int g_maxSpeedSettings = 7;
+
 bool in_noclip_mode = false;
 
 bool help_showing = true;
@@ -183,10 +185,9 @@ void update_noclip_text()
 
 void create_noclip_help_text()
 {
-
 	std::stringstream ss;
 
-	std::string travelSpeedStr;
+	std::string travelSpeedStr = "<C>Medium</C>";
 	switch (travelSpeed)
 	{
 	case 0:
@@ -194,9 +195,6 @@ void create_noclip_help_text()
 		break;
 	case 1:
 		travelSpeedStr = "<C>Slow</C>";
-		break;
-	case 2:
-		travelSpeedStr = "<C>Medium</C>";
 		break;
 	case 3:
 		travelSpeedStr = "<C>Fast</C>";
@@ -209,6 +207,13 @@ void create_noclip_help_text()
 		break;
 	case 6:
 		travelSpeedStr = "<C>~r~Fast as fuck!</C>";
+		break;
+	case 7:
+		travelSpeedStr = "<C>~r~Faster than fast as fuck, this shit is so fucking fast!";
+		break;
+
+	default:
+		travelSpeedStr = "<C>Medium</C>";
 		break;
 	}
 
@@ -278,13 +283,13 @@ void noclip(bool inVehicle)
 		forwardPush = 3.6f; // very fast
 		break;
 	case 5:
-		forwardPush = 5.4f; //extremely fast
+		forwardPush = 5.4f; // extremely fast
 		break;
 	case 6:
 		forwardPush = 10.0f; // fast as fuck
 		break;
 	case 7:
-		forwardPush = 30.0f;
+		forwardPush = 30.0f; // faster than fast as fuck
 		break;
 	}
 
@@ -328,7 +333,7 @@ void noclip(bool inVehicle)
 	if (IsKeyJustUp(keyConfig->key_noclip_speed))
 	{
 		travelSpeed++;
-		if (travelSpeed > 6)
+		if (travelSpeed > g_maxSpeedSettings)
 		{
 			travelSpeed = 0;
 		}

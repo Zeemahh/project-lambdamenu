@@ -12,10 +12,9 @@
 * (C) Alexander Blade 2015
 */
 
-#ifdef _DEBUG
+#if defined(_DEBUG)
 	const bool DEBUG_LOG_ENABLED = true;
-#endif
-#ifndef _DEBUG
+#else
 	const bool DEBUG_LOG_ENABLED = false;
 #endif
 
