@@ -3750,6 +3750,8 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 {
 	switch (activeLineIndexMisc)
 	{
+
+	// Map Location Blips
 	case 0:
 		if (featureMapBlips)
 		{
@@ -3764,6 +3766,8 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 			set_status_text("~r~Please wait a moment, then rejoin to remove blips.");
 		}
 		break;
+
+	// Player Blips
 	case 1:
 		if (!featurePlayerBlips)
 		{
@@ -3774,6 +3778,8 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 			}
 		}
 		break;
+
+	// Police Blip Names
 	case 2:
 		if (featurePlayerBlipNames)
 		{
@@ -3786,9 +3792,9 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 			UI::_0x82CEDC33687E1F50(0);
 		}
 		break;
+
+	// Police Blip Cone (Police FOV)
 	case 3:
-		break;
-	case 5:
 		if (featurePlayerBlips)
 		{
 			if (featurePlayerBlipCone)
@@ -3805,7 +3811,9 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 			}
 		}
 		break;
-	case 6:
+
+	// Police Blips
+	case 4:
 		if (!featurePoliceBlips)
 		{
 			PLAYER::SET_POLICE_RADAR_BLIPS(0);
@@ -3814,26 +3822,29 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 		{
 			PLAYER::SET_POLICE_RADAR_BLIPS(1);
 		}
-		break;	
-	case 9:
+		break;
+	case 7:
 		process_voice_menu();
 		break;
-	case 11: //portable radio
+
+	// Portable Radio
+	case 10:
 		if (featurePlayerRadio || featurePlayerRadioUpdated)
-			{
-				if (featurePlayerRadio)
-					AUDIO::SET_MOBILE_RADIO_ENABLED_DURING_GAMEPLAY(true);
-				else
-					AUDIO::SET_MOBILE_RADIO_ENABLED_DURING_GAMEPLAY(false);
-			}
+		{
+			if (featurePlayerRadio)
+				AUDIO::SET_MOBILE_RADIO_ENABLED_DURING_GAMEPLAY(true);
+			else
+				AUDIO::SET_MOBILE_RADIO_ENABLED_DURING_GAMEPLAY(false);
+		}
 		break;
-	case 12:
-		process_hud_colors();
-		break;
-	case 13: // next radio track
+
+	// Next Radio Track
+	case 11:
 		AUDIO::SKIP_RADIO_FORWARD();
 		break;
-	case 14:
+
+	// Hide Map
+	case 12:
 		if (!featureHideMap)
 		{
 			UI::DISPLAY_RADAR(1);
@@ -3842,8 +3853,10 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 		{
 			UI::DISPLAY_RADAR(0);
 		}
-		break; 
-	case 15:
+		break;
+
+	// Large Map
+	case 13:
 		if (!featureBigHud)
 		{
 			UI::_SET_RADAR_BIGMAP_ENABLED(0, 0);
@@ -3852,11 +3865,15 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 		{
 			UI::_SET_RADAR_BIGMAP_ENABLED(1, 0);
 		}
-	break;
-	case 21:
+		break;
+
+	// Reset All Settings
+	case 19:
 		process_reset_globals();
 		break;
-	case 22:
+
+	// Info & Credits
+	case 20:
 		set_status_text("<C>~b~Lambda ~s~Menu 2.4.1</C>");
 		set_status_text("Contributors:");
 		set_status_text("Oui, TheDroidGeek & ");
@@ -3876,27 +3893,27 @@ void process_misc_menu()
 	std::string caption = "Game Settings";
 
 	StandardOrToggleMenuDef lines[lineCount] = {
-		{ "Map Location Blips", &featureMapBlips, NULL, true },
-		{ "Player Blips", &featurePlayerBlips, NULL, true },
-		{ "Player Blip Names", &featurePlayerBlipNames, NULL, true },
-		{ "Player Blip Cone (Police FOV)", &featurePlayerBlipCone, NULL, true },
-		{ "Police Blips", &featurePoliceBlips, NULL, true },
-		{ "Player Notifications", &featurePlayerNotifications, NULL, true },
-		{ "Death Notifications", &featureDeathNotifications, NULL, true },
-		{ "Voice Options", NULL, NULL, false },
-		{ "HUD Colors", NULL, NULL, false },
-		{ "Radio Always Off", &featureRadioAlwaysOff, &featureRadioAlwaysOffUpdated, true },
-		{ "Portable Radio", &featurePlayerRadio, &featurePlayerRadioUpdated, true },
-		{ "Next Radio Track", NULL, NULL, true },
-		{ "Hide Map", &featureHideMap, NULL, true },
-		{ "Large Map", &featureBigHud, NULL, true },
-		{ "Hide HUD", &featureMiscHideHud, NULL, true },
-		{ "Hide Area & Street Names", &featureAreaStreetNames, NULL, true },
-		{ "Restore Appearance On Respawn", &featureRestoreAppearance, NULL, true },
-		{ "Restore Weapons On Respawn", &featureRestoreWeapons, NULL, true },
-		{ "Death Cutscene", &featureShowDeathCutscene, NULL, true },
-		{ "Reset All Settings", NULL, NULL, false },
-		{ "Info & Credits", NULL, NULL, true }
+		{ "Map Location Blips", &featureMapBlips, NULL, true }, // 0
+		{ "Player Blips", &featurePlayerBlips, NULL, true }, // 1
+		{ "Player Blip Names", &featurePlayerBlipNames, NULL, true }, // 2
+		{ "Player Blip Cone (Police FOV)", &featurePlayerBlipCone, NULL, true }, // 3
+		{ "Police Blips", &featurePoliceBlips, NULL, true }, // 4
+		{ "Player Notifications", &featurePlayerNotifications, NULL, true }, // 5
+		{ "Death Notifications", &featureDeathNotifications, NULL, true }, // 6
+		{ "Voice Options", NULL, NULL, false }, // 7
+		{ "HUD Colors", NULL, NULL, false }, // 8
+		{ "Radio Always Off", &featureRadioAlwaysOff, &featureRadioAlwaysOffUpdated, true }, // 9
+		{ "Portable Radio", &featurePlayerRadio, &featurePlayerRadioUpdated, true }, // 10
+		{ "Next Radio Track", NULL, NULL, true }, // 11
+		{ "Hide Map", &featureHideMap, NULL, true }, // 12
+		{ "Large Map", &featureBigHud, NULL, true }, // 13
+		{ "Hide HUD", &featureMiscHideHud, NULL, true }, // 14
+		{ "Hide Area & Street Names", &featureAreaStreetNames, NULL, true }, // 15
+		{ "Restore Appearance On Respawn", &featureRestoreAppearance, NULL, true }, // 16
+		{ "Restore Weapons On Respawn", &featureRestoreWeapons, NULL, true }, // 17
+		{ "Death Cutscene", &featureShowDeathCutscene, NULL, true }, // 18
+		{ "Reset All Settings", NULL, NULL, false }, // 19
+		{ "Info & Credits", NULL, NULL, true } // 20
 	};
 
 	draw_menu_from_struct_def(lines, lineCount, &activeLineIndexMisc, caption, onconfirm_misc_menu);
@@ -3907,24 +3924,27 @@ void process_misc_menu()
 // DEVELOPMENT TOOLS
 //==================
 int activeLineIndexDev = 0;
-std::string activeNetState;
-std::string playerName;
 bool onconfirm_dev_menu(MenuItem<int> choice)
 {
 	switch (activeLineIndexDev)
 	{
-	case 0:
-		activeNetState = (NETWORK::NETWORK_IS_SESSION_ACTIVE() ? "~g~true" : "~r~false");
-		set_status_text("NETWORK_IS_SESSION_ACTIVE returns " + activeNetState);
-		if (!NETWORK::NETWORK_IS_SESSION_ACTIVE())
+		case 0:
 		{
-			set_status_text("You are likely in singleplayer or instanced.");
+			std::string activeNetState = (NETWORK::NETWORK_IS_SESSION_ACTIVE() ? "~g~true" : "~r~false");
+			set_status_text("NETWORK_IS_SESSION_ACTIVE returns " + activeNetState);
+			if (!NETWORK::NETWORK_IS_SESSION_ACTIVE())
+			{
+				set_status_text("You are likely in singleplayer or instanced.");
+			}
+			break;
 		}
-		break;
-	case 1:
-		playerName = PLAYER::GET_PLAYER_NAME(PLAYER::PLAYER_ID());
-		set_status_text_centre_screen("GET_PLAYER_NAME returns~n~" + playerName, 3000UL);
-		break;
+
+		case 1:
+		{
+			std::string playerName = PLAYER::GET_PLAYER_NAME(PLAYER::PLAYER_ID());
+			set_status_text_centre_screen("GET_PLAYER_NAME returns~n~" + playerName, 3000UL);
+			break;
+		}
 	}
 	return false;
 }
