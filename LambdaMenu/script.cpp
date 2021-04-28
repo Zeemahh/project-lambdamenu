@@ -3787,22 +3787,6 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 		}
 		break;
 	case 3:
-#if !defined(ZLM_CONF_NO_OVERHEAD_NAMES)
-		if (featurePlayerHeadDisplay)
-#else
-		if (0)
-#endif
-		{
-			for (int i = 0; i < MAX_PLAYERS; i++)
-				if (playerdb[i].name != "" && UI::_0x4E929E7A5796FD26(playerdb[i].head))
-					UI::_0x63BB75ABEDC1F6A0(playerdb[i].head, 0, 1);
-		}
-		else
-		{
-			for (int i = 0; i < MAX_PLAYERS; i++)
-				if (playerdb[i].name != "" && UI::_0x4E929E7A5796FD26(playerdb[i].head))
-					UI::_0x63BB75ABEDC1F6A0(playerdb[i].head, 0, 0);
-		}
 		break;
 	case 5:
 		if (featurePlayerBlips)
