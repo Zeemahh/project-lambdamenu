@@ -83,8 +83,6 @@ ERDatabase* database = NULL;
 bool playerWasDisconnected = true;
 bool featurePlayerBlips = true;
 bool featurePlayerBlipNames = false;
-bool featurePlayerHeadDisplay = true;
-bool featurePlayerVehHeadDisplay = true;
 bool featurePlayerBlipCone = false;
 bool featurePlayerNotifications = true;
 bool featureDeathNotifications = true;
@@ -1347,24 +1345,6 @@ void update_features()
 						}
 					}
 
-					if (UI::_0x4E929E7A5796FD26(headDisplayId))
-					{
-						playerdb[i].head = headDisplayId;
-						if (featurePlayerHeadDisplay)
-						{
-							UI::_0xDEA2B8283BAA3944(headDisplayId, (char*)name.c_str());
-							Ped playerPed = PLAYER::PLAYER_PED_ID();
-							if (ENTITY::HAS_ENTITY_CLEAR_LOS_TO_ENTITY(playerPed, playerdb[i].ped, 17) && !(!featurePlayerVehHeadDisplay && PED::IS_PED_IN_ANY_VEHICLE(playerdb[i].ped, 0)))
-							{
-								UI::_0x63BB75ABEDC1F6A0(headDisplayId, 0, 1);
-							}
-							else
-							{
-								UI::_0x63BB75ABEDC1F6A0(headDisplayId, 0, 0);
-							}
-						}
-					}
-
 					if (playerWasDisconnected || !UI::DOES_BLIP_EXIST(playerdb[i].blip))
 					{
 						if (featurePlayerBlips)
@@ -2099,41 +2079,6 @@ void update_features()
 		if (throughDoorPressed)
 		{
 			moveThroughDoor();
-		}
-
-
-		if (playersNames)
-		{
-			if (featurePlayerHeadDisplay)
-			{
-				featurePlayerHeadDisplay = false;
-				for (int i = 0; i < MAX_PLAYERS; i++)
-					if (playerdb[i].name != "" && UI::_0x4E929E7A5796FD26(playerdb[i].head))
-						UI::_0x63BB75ABEDC1F6A0(playerdb[i].head, 0, 0);
-			}
-			else
-			{
-				featurePlayerHeadDisplay = true;
-				for (int i = 0; i < MAX_PLAYERS; i++)
-					if (playerdb[i].name != "" && UI::_0x4E929E7A5796FD26(playerdb[i].head))
-						UI::_0x63BB75ABEDC1F6A0(playerdb[i].head, 0, 1);
-			}
-		}
-
-		if (playersNamesVehicles)
-		{
-#if !defined(ZLM_CONF_NO_OVERHEAD_NAMES)
-			if (featurePlayerVehHeadDisplay)
-#else
-			if (0)
-#endif
-			{
-				featurePlayerVehHeadDisplay = false;
-			}
-			else
-			{
-				featurePlayerVehHeadDisplay = true;
-			}
 		}
 
 		//editor stuff here
@@ -3942,7 +3887,7 @@ bool onconfirm_misc_menu(MenuItem<int> choice)
 }
 void process_misc_menu()
 {
-	const int lineCount = 23;
+	const int lineCount = 21;
 
 	std::string caption = "Game Settings";
 
@@ -3950,8 +3895,6 @@ void process_misc_menu()
 		{ "Map Location Blips", &featureMapBlips, NULL, true },
 		{ "Player Blips", &featurePlayerBlips, NULL, true },
 		{ "Player Blip Names", &featurePlayerBlipNames, NULL, true },
-		{ "Player Names Overhead", &featurePlayerHeadDisplay, NULL, true },
-		{ "Player Names Over Vehicles", &featurePlayerVehHeadDisplay, NULL, true },
 		{ "Player Blip Cone (Police FOV)", &featurePlayerBlipCone, NULL, true },
 		{ "Police Blips", &featurePoliceBlips, NULL, true },
 		{ "Player Notifications", &featurePlayerNotifications, NULL, true },
